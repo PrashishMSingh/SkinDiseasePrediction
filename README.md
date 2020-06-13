@@ -2,3 +2,4 @@
 # Tourismr
 # Tourismr
 # Tourismr
+# SkinDiseasePrediction
