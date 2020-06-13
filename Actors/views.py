@@ -28,7 +28,7 @@ def index(request):
 
 class ConciergeListView(APIView):
     @staticmethod
-    def get(self, request):
+    def get(request):
         concierge = Concierge.objects.values("city","street","contact", "price", "rating",).annotate(
             first_name = F("user__first_name"),
             last_name=F("user__last_name"),
@@ -37,7 +37,7 @@ class ConciergeListView(APIView):
         return Response({"concierge_list" : concierge}, status=status.HTTP_200_OK)
 
     @staticmethod
-    def post(self, request):
+    def post(request):
         stream = BytesIO(request.body)
         data = JSONParser().parse(stream)
         concierge_serializer = ConciergeSerializer(data=data);
@@ -80,15 +80,18 @@ class ConciergeDetailView(APIView):
 
 
 class TouristListView(APIView):
-    def get(self, request):
+
+    @staticmethod
+    def get(request):
         tourist = Tourist.objects.values("country", "gender", "dob").annotate(
             first_name = F("user__first_name"),
             last_name = F("user__last_name"),
             email = F("user__email")
         )
-        return Response(tourist, status=status.HTTP_200_OK)
+        return Response({'tourist_list':tourist}, status=status.HTTP_200_OK)
 
-    def post(self, request):
+    @staticmethod
+    def post(request):
         stream = BytesIO(request.body)
         data = JSONParser().parse(stream)
 
@@ -107,7 +110,6 @@ class TouristListView(APIView):
         return Response({"result" : "error", "message" : error}, status=status.HTTP_200_OK)
 
 
-
 def create_user(user_data):
     print(user_data)
     try:
@@ -119,6 +121,7 @@ def create_user(user_data):
     user.set_password(user.password)
     user.save()
     return user, None
+
 
 def getUserData(data):
     user_data = data.pop('user')

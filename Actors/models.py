@@ -11,6 +11,7 @@ class Tourist(models.Model):
     country = models.CharField(max_length=50)
     gender = models.CharField(max_length= 20, choices=(("male","Male"), ("female", "Female"), ("others", "Others")))
     dob = models.DateField()
+
     def __str__(self):
         return self.user.email
 

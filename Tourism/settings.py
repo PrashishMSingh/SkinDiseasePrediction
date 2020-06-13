@@ -25,12 +25,11 @@ SECRET_KEY = '#e+4bqd-%7ykfax(s+bcq(8idp$^ul9t*h6)s%c(n=0yilg#dk'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
 
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,10 +43,11 @@ INSTALLED_APPS = [
     'Security',
     'django_extensions',
     'rest_framework.authtoken',
-    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -139,7 +139,12 @@ STATIC_URL = '/static/'
 
 
 CORS_ORIGIN_ALLOW_ALL = True
+
 CORS_ALLOW_CREDENTIALS = False
+
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
+]
 
 CORS_ALLOW_HEADERS = (
     'accept',
@@ -157,3 +162,4 @@ CORS_ALLOW_HEADERS = (
 
 ALLOWED_HOSTS = ['*']
 AUTH_USER_EMAIL_UNIQUE = True
+
