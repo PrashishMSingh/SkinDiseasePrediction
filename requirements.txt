@@ -1,4 +1,4 @@
-certifi==2019.6.16
+certifi==2022.12.7
 Django==2.2.2
 django-cors-headers==3.0.2
 django-extensions==2.1.9
